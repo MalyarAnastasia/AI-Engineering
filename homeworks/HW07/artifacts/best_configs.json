@@ -1,0 +1,32 @@
+{
+  "dataset_01": {
+    "method": "KMeans",
+    "criterion": "silhouette_score",
+    "config": {
+      "k": 2,
+      "eps": null,
+      "min_samples": null
+    },
+    "best_silhouette": 0.5216395622404242
+  },
+  "dataset_02": {
+    "method": "DBSCAN",
+    "criterion": "silhouette_score",
+    "config": {
+      "k": null,
+      "eps": 0.7000000000000001,
+      "min_samples": 7
+    },
+    "best_silhouette": 0.3520987973628631
+  },
+  "dataset_03": {
+    "method": "DBSCAN",
+    "criterion": "silhouette_score",
+    "config": {
+      "k": null,
+      "eps": 0.8,
+      "min_samples": 3
+    },
+    "best_silhouette": 0.3725981452885354
+  }
+}
