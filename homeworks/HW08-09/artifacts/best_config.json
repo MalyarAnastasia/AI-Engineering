@@ -1,0 +1,29 @@
+{
+  "dataset": "EMNIST",
+  "seed": 42,
+  "model_config": {
+    "hidden_sizes": [
+      512,
+      256,
+      128
+    ],
+    "activation": "relu",
+    "use_dropout": false,
+    "dropout_p": 0.0,
+    "use_batchnorm": true
+  },
+  "optim_config": {
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "weight_decay": 0.0
+  },
+  "train_config": {
+    "epochs": 20
+  },
+  "best_val_accuracy": 0.8572251773049645,
+  "best_val_loss": 0.42561802686528954,
+  "test_metrics": {
+    "test_loss": 0.44925491992463457,
+    "test_accuracy": 0.8512234042553192
+  }
+}
