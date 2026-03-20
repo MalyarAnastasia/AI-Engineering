@@ -1,6 +1,24 @@
 {
   "dataset": "EMNIST",
   "seed": 42,
+  "batch_size": 128,
+  "val_ratio": 0.2,
+  "criterion": "CrossEntropyLoss",
+  "metric": "accuracy",
+  "optimizer": "Adam",
+  "lr": 0.001,
+  "momentum": 0.0,
+  "weight_decay": 0.0,
+  "early_stopping": {
+    "enabled": true,
+    "patience": 5,
+    "monitor": "val_accuracy",
+    "mode": "max"
+  },
+  "early_stopping_patience": 5,
+  "early_stopping_metric": "val_accuracy",
+  "epochs_max": 20,
+  "epochs_trained": 12,
   "model_config": {
     "hidden_sizes": [
       512,
@@ -15,6 +33,7 @@
   "optim_config": {
     "optimizer": "Adam",
     "lr": 0.001,
+    "momentum": 0.0,
     "weight_decay": 0.0
   },
   "train_config": {
