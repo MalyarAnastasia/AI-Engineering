@@ -1,0 +1,41 @@
+{
+  "seed": 42,
+  "dataset": "CIFAR100",
+  "split": {
+    "train": 3000,
+    "val": 1000,
+    "test": 10000
+  },
+  "best_experiment_id": "C4",
+  "model_summary": "ResNet18(finetune layer4+fc)",
+  "epochs": 2,
+  "batch_size": 128,
+  "loss": "CrossEntropyLoss",
+  "optimizers": {
+    "C1": {
+      "name": "Adam",
+      "lr": 0.001
+    },
+    "C2": {
+      "name": "Adam",
+      "lr": 0.001
+    },
+    "C3": {
+      "name": "Adam",
+      "lr": 0.001
+    },
+    "C4": {
+      "name": "Adam",
+      "lr": 0.0001
+    }
+  },
+  "transforms": {
+    "base": "ToTensor + Normalize(CIFAR100 mean/std)",
+    "aug": "RandomHorizontalFlip + RandomCrop(32,padding=4) + ColorJitter + ToTensor + Normalize",
+    "resnet": "ResNet18_Weights.DEFAULT.transforms()"
+  },
+  "test_result": {
+    "loss": 3.4617386978149414,
+    "accuracy": 0.2583
+  }
+}
