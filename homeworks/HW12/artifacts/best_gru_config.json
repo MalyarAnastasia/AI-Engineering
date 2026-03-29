@@ -9,7 +9,7 @@
   "optimizer": "Adam",
   "lr": 0.001,
   "max_epochs": 40,
-  "epochs_trained": 26,
+  "epochs_trained": 23,
   "seed": 42,
   "scaler": "StandardScaler(target, fit_on_train_only)",
   "device": "cpu"
