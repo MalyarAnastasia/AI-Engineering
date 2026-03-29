@@ -3,5 +3,5 @@ C1,classification,CIFAR100,42,SimpleCNN(base),Adam,0.001,2,0.03800000008940697,,
 C2,classification,CIFAR100,42,SimpleCNN(aug),Adam,0.001,2,0.027000000089406968,,,,,with augmentation
 C3,classification,CIFAR100,42,ResNet18(head-only),Adam,0.001,2,0.20799999976158143,,,,,pretrained backbone frozen
 C4,classification,CIFAR100,42,ResNet18(finetune layer4+fc),Adam,0.0001,2,0.23899999928474427,0.2583,,,,best by val; test evaluated once
-V1,segmentation,OxfordIIITPet(test subset),42,DeepLabV3_ResNet50(pretrained VOC) | fg=cat/dog prob>=0.3,,,,,,0.7964582026907541,0.34408924151477566,0.320075055727027,PET_EVAL_N=200; V1 threshold=0.3
-V2,segmentation,OxfordIIITPet(test subset),42,DeepLabV3_ResNet50(pretrained VOC) | fg=cat/dog prob>=0.7 + morph,,,,,,0.8395153239997667,0.32874924098114455,0.3167792914487899,PET_EVAL_N=200; V2 threshold=0.7 + open/close(k=5)
+V1,segmentation,OxfordIIITPet(test subset),42,DeepLabV3_ResNet50(torchvision pretrained) | fg=cat/dog prob>=0.3,,,,,,0.7964582026907541,0.34408924151477566,0.320075055727027,PET_EVAL_N=200; V1 threshold=0.3
+V2,segmentation,OxfordIIITPet(test subset),42,DeepLabV3_ResNet50(torchvision pretrained) | fg=cat/dog prob>=0.7 + morph,,,,,,0.8395153239997667,0.32874924098114455,0.3167792914487899,PET_EVAL_N=200; V2 threshold=0.7 + open/close(k=5)

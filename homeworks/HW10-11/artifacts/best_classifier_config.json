@@ -32,7 +32,7 @@
   "transforms": {
     "base": "ToTensor + Normalize(CIFAR100 mean/std)",
     "aug": "RandomHorizontalFlip + RandomCrop(32,padding=4) + ColorJitter + ToTensor + Normalize",
-    "resnet": "ResNet18_Weights.DEFAULT.transforms()"
+    "resnet": "ResNet18_Weights.IMAGENET1K_V1.transforms()"
   },
   "test_result": {
     "loss": 3.4617386978149414,

@@ -1,9 +1,13 @@
 # HW10-11 – компьютерное зрение в PyTorch: CNN, transfer learning, detection/segmentation
 
+**Трек части B (выбор одного):** `segmentation` — **не** `detection`.
+
+**Датасет части B:** только `OxfordIIITPet` (оценка на `split=test`), другие датасеты из списка задания для части B не использовались.
+
 ## 1. Кратко: что сделано
 
 - Для части A выбран `CIFAR100`, так как это стандартный и достаточно сложный датасет классификации (100 классов), на котором хорошо видно разницу между простой CNN, аугментациями и transfer learning.
-- Для части B выбран `OxfordIIITPet`, трек `segmentation`, потому что для него удобно и корректно поставить бинарную сегментацию foreground (питомец vs фон) и проанализировать постобработку.
+- Для части B выбран **только** `OxfordIIITPet`, трек **`segmentation`** (не detection), потому что для него удобно и корректно поставить бинарную сегментацию foreground (питомец vs фон) и проанализировать постобработку.
 - В части A сравнивались четыре эксперимента: `C1/C2` (одинаковая CNN без/с аугментациями) и `C3/C4` (ResNet18 head-only vs partial fine-tuning). В части B сравнивались два режима постобработки маски: `V1` и `V2`.
 
 ## 2. Среда и воспроизводимость
@@ -26,8 +30,8 @@
 
 ### 3.2. Часть B: structured vision
 
-- Датасет: `OxfordIIITPet`
-- Трек: `segmentation`
+- Датасет: **только** `OxfordIIITPet` (в ноутбуке загружается один вызов `OxfordIIITPet` с `split='test'` для оценки; `trainval` не используется).
+- Трек: **`segmentation`** (явно не `detection`)
 - Что считается ground truth: пиксели питомца (cat/dog) как foreground, фон как background.
 - Какие предсказания использовались: предсказание pretrained `DeepLabV3_ResNet50`, затем бинаризация вероятности foreground и постобработка.
 - Комментарий: такая постановка разумна для данного датасета, потому что классы питомцев хорошо соответствуют задаче "объект vs фон". Бинарный сценарий упрощает интерпретацию метрик и позволяет явно оценить эффект постобработки.
@@ -38,8 +42,8 @@
 
 - C1 (simple-cnn-base): простая CNN без аугментаций.
 - C2 (simple-cnn-aug): та же CNN, но с аугментациями.
-- C3 (resnet18-head-only): pretrained `ResNet18`, backbone заморожен, обучается только классификатор.
-- C4 (resnet18-finetune): pretrained `ResNet18`, частичный fine-tuning (`layer4 + fc`).
+- C3 (resnet18-head-only): pretrained `ResNet18` с весами `torchvision.models.ResNet18_Weights.IMAGENET1K_V1`, backbone заморожен, обучается только классификатор.
+- C4 (resnet18-finetune): pretrained `ResNet18` с весами `ResNet18_Weights.IMAGENET1K_V1`, частичный fine-tuning (`layer4 + fc`).
 
 Дополнительно:
 
@@ -53,11 +57,11 @@
 
 ### Если выбран detection track
 
-- Не использовался (выбран segmentation track).
+- Не применимо: в работе выбран **только** трек **`segmentation`**.
 
 ### Если выбран segmentation track
 
-- Модель: pretrained `DeepLabV3_ResNet50`
+- Модель: pretrained `DeepLabV3_ResNet50` (`torchvision.models.segmentation`, веса через `DeepLabV3_ResNet50_Weights`)
 - Что считается foreground: пиксели питомца (`cat/dog`) после бинаризации вероятности foreground.
 - V1: базовая постобработка (`threshold = 0.3`, без морфологии)
 - V2: альтернативная постобработка (`threshold = 0.7` + морфологическая очистка open/close с `k=5`)
