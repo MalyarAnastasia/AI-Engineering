@@ -1,6 +1,6 @@
 # HW10-11 – компьютерное зрение в PyTorch: CNN, transfer learning, detection/segmentation
 
-**Трек части B (выбор одного):** `segmentation` — **не** `detection`.
+Выбранный трек части B: segmentation.
 
 **Датасет части B:** только `OxfordIIITPet` (оценка на `split=test`), другие датасеты из списка задания для части B не использовались.
 
@@ -31,7 +31,7 @@
 ### 3.2. Часть B: structured vision
 
 - Датасет: **только** `OxfordIIITPet` (в ноутбуке загружается один вызов `OxfordIIITPet` с `split='test'` для оценки; `trainval` не используется).
-- Трек: **`segmentation`** (явно не `detection`)
+- Трек: segmentation
 - Что считается ground truth: пиксели питомца (cat/dog) как foreground, фон как background.
 - Какие предсказания использовались: предсказание pretrained `DeepLabV3_ResNet50`, затем бинаризация вероятности foreground и постобработка.
 - Комментарий: такая постановка разумна для данного датасета, потому что классы питомцев хорошо соответствуют задаче "объект vs фон". Бинарный сценарий упрощает интерпретацию метрик и позволяет явно оценить эффект постобработки.
@@ -55,11 +55,7 @@
 
 ## 5. Часть B: постановка задачи и режимы оценки (V1-V2)
 
-### Если выбран detection track
-
-- Не применимо: в работе выбран **только** трек **`segmentation`**.
-
-### Если выбран segmentation track
+### Segmentation track (в этой работе)
 
 - Модель: pretrained `DeepLabV3_ResNet50` (`torchvision.models.segmentation`, веса через `DeepLabV3_ResNet50_Weights`)
 - Что считается foreground: пиксели питомца (`cat/dog`) после бинаризации вероятности foreground.
