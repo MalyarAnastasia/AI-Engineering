@@ -1,0 +1,26 @@
+TEXT: while cycling in the country
+TOKENS: ['[CLS]', 'while', 'cycling', 'in', 'the', 'country', '[SEP]']
+input_ids: [101, 2096, 9670, 1999, 1996, 2406, 102]
+attention_mask: [1, 1, 1, 1, 1, 1, 1]
+
+TEXT: i had pocket qq and was feeling pretty confident lol
+TOKENS: ['[CLS]', 'i', 'had', 'pocket', 'q', '##q', 'and', 'was', 'feeling', 'pretty', 'confident', 'lo', '##l', '[SEP]']
+input_ids: [101, 1045, 2018, 4979, 1053, 4160, 1998, 2001, 3110, 3492, 9657, 8840, 2140, 102]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+TEXT: i am in no way complaining or whining or feeling ungrateful
+TOKENS: ['[CLS]', 'i', 'am', 'in', 'no', 'way', 'complaining', 'or', 'w', '##hini', '##ng', 'or', 'feeling', 'un', '##grate', '##ful', '[SEP]']
+input_ids: [101, 1045, 2572, 1999, 2053, 2126, 17949, 2030, 1059, 20535, 3070, 2030, 3110, 4895, 22780, 3993, 102]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+TEXT: i feel a bit stressed because it feels like im supposed to do something all the time and that i should be reading now
+TOKENS: ['[CLS]', 'i', 'feel', 'a', 'bit', 'stressed', 'because', 'it', 'feels', 'like', 'im', 'supposed', 'to', 'do', 'something', 'all', 'the', 'time', 'and', 'that', 'i', 'should', 'be', 'reading', 'now', '[SEP]']
+input_ids: [101, 1045, 2514, 1037, 2978, 13233, 2138, 2009, 5683, 2066, 10047, 4011, 2000, 2079, 2242, 2035, 1996, 2051, 1998, 2008, 1045, 2323, 2022, 3752, 2085, 102]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+TEXT: i tell the people closest to me things that i am feeling and its as if they arent surprised because theyd known it all along
+TOKENS: ['[CLS]', 'i', 'tell', 'the', 'people', 'closest', 'to', 'me', 'things', 'that', 'i', 'am', 'feeling', 'and', 'its', 'as', 'if', 'they', 'aren', '##t', 'surprised', 'because', 'they', '##d', 'known', 'it', 'all', 'along', '[SEP]']
+input_ids: [101, 1045, 2425, 1996, 2111, 7541, 2000, 2033, 2477, 2008, 1045, 2572, 3110, 1998, 2049, 2004, 2065, 2027, 4995, 2102, 4527, 2138, 2027, 2094, 2124, 2009, 2035, 2247, 102]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Truncation+padding demo: max_length=32, attention sum=32

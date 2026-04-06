@@ -1,0 +1,27 @@
+{
+  "python": "3.14.3",
+  "torch": "2.10.0+cpu",
+  "datasets": "4.8.4",
+  "transformers": "5.5.0",
+  "device": "cpu",
+  "seed": 42,
+  "label_names": ["sadness", "joy", "love", "anger", "fear", "surprise"],
+  "train_size_full": 16000,
+  "train_size_used": 4000,
+  "val_size": 2000,
+  "test_size": 2000,
+  "best_val_f1_macro_checkpoint": 0.9194904832515092,
+  "test_accuracy": 0.934,
+  "test_f1_macro": 0.8940229465256078,
+  "checkpoint_used_for_test": "artifacts/trainer_output/checkpoint-2000",
+  "pretrained_inference_model": "distilbert-base-uncased-finetuned-sst-2-english",
+  "fine_tune_model": "distilbert-base-uncased",
+  "training": {
+    "max_length": 128,
+    "batch_size": 16,
+    "num_epochs": 2,
+    "lr": 5e-05,
+    "optimizer": "AdamW (default in Trainer)",
+    "best_model_metric": "f1_macro on validation"
+  }
+}

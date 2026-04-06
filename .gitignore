@@ -55,3 +55,10 @@ logs/
 *.tmp
 *.bak
 *.old
+
+# HW13: веса и чекпоинты Trainer (не для git; в задании веса не обязательны)
+homeworks/HW13/artifacts/trainer_output/
+homeworks/HW13/artifacts/_tmp*/
+
+# Локальные датасеты / большие данные
+data/
