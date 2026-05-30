@@ -18,7 +18,7 @@
 | 2  | Endpoint /predict использует **реальную модель**, а не заглушку        | ✅ | src/service/app.py, src/models/train.py             |
 | 3  | Есть EDA и хотя бы один эксперимент с метриками                          | ✅ | notebooks/01_eda.ipynb, notebooks/03_baselines.ipynb     |
 | 4  | Есть baseline и улучшенная модель, есть **сравнение по метрикам**        | ✅ | notebooks/05_model_selection.ipynb, report.md |
-| 5  | Код не свален в один ноутбук: есть внятная структура в src/            | ✅ | src/data/, src/models/, src/service/ |
+| 5  | Код не свален в один ноутбук: есть внятная структура в src/            | ✅ | src/models/, src/service/ |
 | 6  | Есть Dockerfile **или** понятный сценарий развёртывания без Docker       | ✅ | Dockerfile или шаги в README.md       |
 | 7  | Есть .env.example и **нет** в репозитории реальных секретов/паролей    | ✅ | .env.example, .gitignore    |
 | 8  | Реализованы логи/наблюдаемость (хотя бы консольные логи + /health)     | ✅ | src/service/app.py (logging), endpoint /health |

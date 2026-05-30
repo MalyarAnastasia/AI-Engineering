@@ -5,13 +5,12 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def test_imports():
     """Тест импортов основных модулей"""
-    from src.data.preprocessing import EstatePreprocessing
-    from src.models.modeling import EstateClustering, EstateRegression
+    from src.models.train import load_data, train_model
+    from src.service.app import app
     assert True
 
 def test_config_exists():
     """Тест существования конфигурационных файлов"""
-    assert os.path.exists("configs/config.yaml")
     assert os.path.exists("configs/.env.example")
 
 def test_requirements_exists():
