@@ -17,10 +17,10 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath("__file__"))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Создание папки для графиков
-notebook_dir = os.path.dirname(os.path.abspath("__file__"))
+notebook_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.dirname(notebook_dir)
 plots_dir = os.path.join(project_dir, "artifacts", "plots")
 os.makedirs(plots_dir, exist_ok=True)
@@ -31,18 +31,12 @@ os.makedirs(plots_dir, exist_ok=True)
 # In[2]:
 
 
-import os
-notebook_dir = os.path.dirname(os.path.abspath("__file__"))
-project_dir = os.path.dirname(notebook_dir)
-data_path = os.path.join(project_dir, "data", "cleaned_data.csv")
+from src.data.notebook_helpers import load_sample, add_kmeans_cluster, get_xy
 
-df = pd.read_csv(data_path)
+df = load_sample(100000, random_state=42)
+df, _ = add_kmeans_cluster(df)
 
-# Используем выборку для ускорения
-sample_df = df.sample(100000, random_state=42)
-
-X = sample_df[['area', 'kitchen_area', 'rooms', 'geo_lat', 'geo_lon']]
-y = sample_df['price']
+X, y = get_xy(df, with_cluster=True)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -68,7 +62,7 @@ r2_bag = r2_score(y_test, y_pred_bag)
 print(f"Bagging Regressor:")
 print(f"  MAE: {mae_bag:.0f}")
 print(f"  RMSE: {rmse_bag:.0f}")
-print(f"  R²: {r2_bag:.3f}")
+print(f"  R2: {r2_bag:.3f}")
 
 
 # ## 3. CatBoost Regressor
@@ -94,7 +88,7 @@ r2_cb = r2_score(y_test, y_pred_cb)
 print(f"CatBoost:")
 print(f"  MAE: {mae_cb:.0f}")
 print(f"  RMSE: {rmse_cb:.0f}")
-print(f"  R²: {r2_cb:.3f}")
+print(f"  R2: {r2_cb:.3f}")
 
 
 # ## 4. Важность признаков

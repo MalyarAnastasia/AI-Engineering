@@ -16,10 +16,10 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath("__file__"))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Создание папки для графиков
-notebook_dir = os.path.dirname(os.path.abspath("__file__"))
+notebook_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.dirname(notebook_dir)
 plots_dir = os.path.join(project_dir, "artifacts", "plots")
 os.makedirs(plots_dir, exist_ok=True)
@@ -30,18 +30,12 @@ os.makedirs(plots_dir, exist_ok=True)
 # In[2]:
 
 
-import os
-notebook_dir = os.path.dirname(os.path.abspath("__file__"))
-project_dir = os.path.dirname(notebook_dir)
-data_path = os.path.join(project_dir, "data", "cleaned_data.csv")
+from src.data.notebook_helpers import load_sample, get_xy
 
-df = pd.read_csv(data_path)
+df = load_sample(100000, random_state=42)
 
-# Используем выборку для ускорения
-sample_df = df.sample(100000, random_state=42)
-
-X = sample_df[['area', 'kitchen_area', 'rooms', 'geo_lat', 'geo_lon']]
-y = sample_df['price']
+# Baseline без кластеризации — для сравнения с продвинутыми моделями
+X, y = get_xy(df, with_cluster=False)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -66,7 +60,7 @@ r2_lr = r2_score(y_test, y_pred_lr)
 print(f"Linear Regression:")
 print(f"  MAE: {mae_lr:.0f}")
 print(f"  RMSE: {rmse_lr:.0f}")
-print(f"  R²: {r2_lr:.3f}")
+print(f"  R2: {r2_lr:.3f}")
 
 
 # ## 3. Decision Tree
@@ -86,7 +80,7 @@ r2_dt = r2_score(y_test, y_pred_dt)
 print(f"Decision Tree:")
 print(f"  MAE: {mae_dt:.0f}")
 print(f"  RMSE: {rmse_dt:.0f}")
-print(f"  R²: {r2_dt:.3f}")
+print(f"  R2: {r2_dt:.3f}")
 
 
 # ## 4. Сравнение моделей
@@ -98,7 +92,7 @@ results = pd.DataFrame({
     'Model': ['Linear Regression', 'Decision Tree'],
     'MAE': [mae_lr, mae_dt],
     'RMSE': [rmse_lr, rmse_dt],
-    'R²': [r2_lr, r2_dt]
+    'R2': [r2_lr, r2_dt]
 })
 
 print(results)
@@ -114,9 +108,9 @@ results.plot(x='Model', y='RMSE', kind='bar', ax=axes[1], color='lightcoral')
 axes[1].set_title('Сравнение RMSE')
 axes[1].set_ylabel('RMSE (руб)')
 
-results.plot(x='Model', y='R²', kind='bar', ax=axes[2], color='lightgreen')
-axes[2].set_title('Сравнение R²')
-axes[2].set_ylabel('R²')
+results.plot(x='Model', y='R2', kind='bar', ax=axes[2], color='lightgreen')
+axes[2].set_title('Сравнение R2')
+axes[2].set_ylabel('R2')
 
 plt.tight_layout()
 plt.savefig(os.path.join(plots_dir, '03_baseline_comparison.png'), dpi=300, bbox_inches='tight')

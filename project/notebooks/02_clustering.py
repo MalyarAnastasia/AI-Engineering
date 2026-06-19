@@ -15,12 +15,12 @@ from sklearn.metrics import silhouette_score
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath("__file__"))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 sns.set_style("whitegrid")
 
 # Создание папки для графиков
-notebook_dir = os.path.dirname(os.path.abspath("__file__"))
+notebook_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.dirname(notebook_dir)
 plots_dir = os.path.join(project_dir, "artifacts", "plots")
 os.makedirs(plots_dir, exist_ok=True)
@@ -32,7 +32,7 @@ os.makedirs(plots_dir, exist_ok=True)
 
 
 import os
-notebook_dir = os.path.dirname(os.path.abspath("__file__"))
+notebook_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.dirname(notebook_dir)
 data_path = os.path.join(project_dir, "data", "cleaned_data.csv")
 
@@ -46,11 +46,13 @@ df.head()
 # In[3]:
 
 
-# Используем выборку для ускорения
-sample_df = df.sample(100000, random_state=42)
-X = sample_df[['geo_lat', 'geo_lon', 'price']]
+# Используем выборку для ускорения (те же признаки, что в train.py)
+from src.data.notebook_helpers import load_sample
 
-print(f"Размер выборки: {X.shape}")
+sample_df = load_sample(100000, random_state=42)
+X_cluster = sample_df[['price', 'area', 'kitchen_area', 'geo_lat', 'geo_lon']]
+
+print(f"Размер выборки: {X_cluster.shape}")
 
 
 # ## 3. Метод локтя для определения оптимального k
@@ -63,7 +65,7 @@ k_range = range(2, 8)
 
 for k in k_range:
     kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
-    kmeans.fit(X)
+    kmeans.fit(X_cluster)
     inertia_values.append(kmeans.inertia_)
 
 plt.figure(figsize=(10, 6))
@@ -83,9 +85,9 @@ plt.show()
 
 
 kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
-sample_df['cluster'] = kmeans.fit_predict(X)
+sample_df['kmeans_cluster'] = kmeans.fit_predict(X_cluster)
 
-silhouette = silhouette_score(X, sample_df['cluster'])
+silhouette = silhouette_score(X_cluster, sample_df['kmeans_cluster'])
 print(f"Silhouette Score: {silhouette:.3f}")
 
 
@@ -94,7 +96,7 @@ print(f"Silhouette Score: {silhouette:.3f}")
 # In[6]:
 
 
-cluster_stats = sample_df.groupby('cluster').agg({
+cluster_stats = sample_df.groupby('kmeans_cluster').agg({
     'price': ['mean', 'count'],
     'area': 'mean',
     'rooms': 'mean'
@@ -109,7 +111,7 @@ print(cluster_stats)
 
 
 plt.figure(figsize=(12, 8))
-scatter = plt.scatter(sample_df['geo_lon'], sample_df['geo_lat'], c=sample_df['cluster'], cmap='viridis', s=1, alpha=0.5)
+scatter = plt.scatter(sample_df['geo_lon'], sample_df['geo_lat'], c=sample_df['kmeans_cluster'], cmap='viridis', s=1, alpha=0.5)
 plt.colorbar(scatter, label='Кластер')
 plt.xlabel('Долгота')
 plt.ylabel('Широта')

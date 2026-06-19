@@ -20,6 +20,7 @@ COPY artifacts/ ./artifacts/
 ENV PYTHONPATH=/app
 ENV MODEL_PATH=/app/artifacts/model.joblib
 ENV KMEANS_PATH=/app/artifacts/kmeans.joblib
+ENV FEATURE_COLUMNS_PATH=/app/artifacts/feature_columns.joblib
 
 # Expose port
 EXPOSE 8000

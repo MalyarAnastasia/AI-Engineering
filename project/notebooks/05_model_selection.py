@@ -19,12 +19,12 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath("__file__"))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 sns.set_style("whitegrid")
 
 # Создание папки для графиков
-notebook_dir = os.path.dirname(os.path.abspath("__file__"))
+notebook_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.dirname(notebook_dir)
 plots_dir = os.path.join(project_dir, "artifacts", "plots")
 os.makedirs(plots_dir, exist_ok=True)
@@ -35,18 +35,12 @@ os.makedirs(plots_dir, exist_ok=True)
 # In[2]:
 
 
-import os
-notebook_dir = os.path.dirname(os.path.abspath("__file__"))
-project_dir = os.path.dirname(notebook_dir)
-data_path = os.path.join(project_dir, "data", "cleaned_data.csv")
+from src.data.notebook_helpers import load_sample, add_kmeans_cluster, get_xy
 
-df = pd.read_csv(data_path)
+df = load_sample(100000, random_state=42)
+df, _ = add_kmeans_cluster(df)
 
-# Используем выборку для ускорения
-sample_df = df.sample(100000, random_state=42)
-
-X = sample_df[['area', 'kitchen_area', 'rooms', 'geo_lat', 'geo_lon']]
-y = sample_df['price']
+X, y = get_xy(df, with_cluster=True)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -83,7 +77,7 @@ for name, model in models.items():
         'Model': name,
         'MAE': mean_absolute_error(y_test, y_pred),
         'RMSE': np.sqrt(mean_squared_error(y_test, y_pred)),
-        'R²': r2_score(y_test, y_pred)
+        'R2': r2_score(y_test, y_pred)
     })
 
 results_df = pd.DataFrame(results)
@@ -105,9 +99,9 @@ results_df.plot(x='Model', y='RMSE', kind='bar', ax=axes[1], color='lightcoral')
 axes[1].set_title('Сравнение RMSE')
 axes[1].set_ylabel('RMSE (руб)')
 
-results_df.plot(x='Model', y='R²', kind='bar', ax=axes[2], color='lightgreen')
-axes[2].set_title('Сравнение R²')
-axes[2].set_ylabel('R²')
+results_df.plot(x='Model', y='R2', kind='bar', ax=axes[2], color='lightgreen')
+axes[2].set_title('Сравнение R2')
+axes[2].set_ylabel('R2')
 
 plt.tight_layout()
 plt.savefig(os.path.join(plots_dir, '05_model_comparison.png'), dpi=300, bbox_inches='tight')
@@ -119,7 +113,7 @@ plt.show()
 # **CatBoost выбран как финальная модель по следующим причинам:**
 # 
 # 1. **Лучшая точность**: Наименьший MAE и RMSE среди всех моделей
-# 2. **Высокий R²**: Объясняет большую часть дисперсии целевой переменной
+# 2. **Высокий R2**: Объясняет большую часть дисперсии целевой переменной
 # 3. **Скорость предсказания**: < 50ms на запрос
 # 4. **Интерпретируемость**: Встроенная важность признаков
 # 5. **Устойчивость**: Менее чувствителен к выбросам
